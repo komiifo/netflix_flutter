@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_flutter/types/genre.dart';
 import 'package:netflix_flutter/types/movies.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:netflix_flutter/utils/api.dart';
@@ -13,6 +14,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   late List<Movie> _movies = [];
+  late List<Genre> _genres = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    getGenres().then((value) => {
+          setState(() => _genres = value),
+          getMovies("", _genres)
+              .then((value) => setState(() => _movies = value))
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   buttons: [
                     DialogButton(
                       onPressed: () {
-                        getMovies(_searchController.text).then((value) {
+                        getMovies(_searchController.text, _genres)
+                            .then((value) {
                           setState(() {
                             _movies = value;
                             _searchController.clear();
