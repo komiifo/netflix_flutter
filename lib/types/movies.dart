@@ -1,9 +1,12 @@
+import 'package:netflix_flutter/types/genre.dart';
+
 class Movie {
   final String? title;
   final String? overview;
   final String? releaseDate;
   final String? posterPath;
   final double? voteAverage;
+  final List<Genre>? genres;
 
   Movie({
     required this.title,
@@ -11,5 +14,6 @@ class Movie {
     required this.releaseDate,
     required this.posterPath,
     required this.voteAverage,
+    required this.genres,
   });
 }
