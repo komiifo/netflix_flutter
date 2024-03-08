@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_flutter/screens/home_screen.dart';
 import 'package:netflix_flutter/screens/movie_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 

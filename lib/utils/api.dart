@@ -2,9 +2,10 @@
 import 'dart:convert';
 import 'package:netflix_flutter/types/movies.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final baseUrl = 'https://api.themoviedb.org/3/';
-final apiKey = '26a145d058cf4d1b17cbf084ddebedec';
+final apiKey = dotenv.env['API_KEY'];
 
 Future<List<Movie>> getMovies(String movieName) async {
   var query = '';
