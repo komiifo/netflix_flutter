@@ -66,22 +66,29 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          for (var movie in _movies)
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/movie', arguments: movie);
-              },
-              child: Card(
-                elevation: 5.0,
-                child: Image.network(
-                  'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                  fit: BoxFit.cover,
-                ),
+      body: GridView.builder(
+        itemCount: _movies.length,
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200.0,
+          crossAxisSpacing: 10.0,
+          mainAxisSpacing: 10.0,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/movie', arguments: _movies[index]);
+            },
+            child: Card(
+              elevation: 5.0,
+              child: Image.network(
+                _movies[index].posterPath == null
+                    ? 'https://image.tmdb.org/t/p/w200/8Y43P0KjjKDGI9MH89NWONA.jpg'
+                    : 'https://image.tmdb.org/t/p/w500${_movies[index].posterPath}',
+                fit: BoxFit.fill,
               ),
             ),
-        ],
+          );
+        },
       ),
     );
   }
