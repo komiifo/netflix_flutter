@@ -20,12 +20,25 @@ class MovieScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: Image.network(
-              'https://image.tmdb.org/t/p/w500${movie.posterPath} ??'
-              'Null',
-              fit: BoxFit.cover,
-            ),
+          movie.posterPath == null
+              ? const Text('No image')
+              : Expanded(
+                  child: Image.network(
+                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (var genre in movie.genres ?? [])
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Chip(
+                    label: Text(genre.name),
+                  ),
+                ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
